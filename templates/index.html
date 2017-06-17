@@ -1,0 +1,19 @@
+{% extends "basic.html" %}
+
+{% block script%}
+<script type="text/javascript">
+	$SCRIPT_ROOT = {{ request.script_root |tojson|safe }};
+	$(function() {
+		setInterval(function(){
+			$.getJSON($SCRIPT_ROOT+"/bitcoin", {}, function(data){
+				$(".price")[0].text(data.result);
+			});
+		}, 5000);
+	})
+</script>
+{% endblock %}
+
+{% block body %}
+	<h1 class="header_title">BTC: <span class="price">{{data["price_usd"]}}$</span></h1>
+
+{% endblock %}

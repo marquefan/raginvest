@@ -1,0 +1,23 @@
+body, html {
+	margin: 0 0;
+	padding: 0 0;
+}
+
+.header_title {
+	font-size: 60px;
+	text-align: center;
+	position: relative;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	margin: 10% auto;
+	font-weight: lighter;
+	text-transform: uppercase;
+	font-family: 'Lato', sans-serif;
+}
+
+.price {
+	margin-left: 35px;
+	font-size: 75%;
+}
