@@ -19,9 +19,7 @@ pyperclip==1.5.26
 pyserial==2.6
 pysmbc==1.0.14.1
 python3-xlib==0.15
-
 requests==2.2.1
-sessioninstaller==0.0.0
 simplejson==3.10.0
 six==1.5.2
 system-service==0.1.6
