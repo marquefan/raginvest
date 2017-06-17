@@ -18,8 +18,6 @@ lxml==3.3.3
 pyperclip==1.5.26
 pyserial==2.6
 pysmbc==1.0.14.1
-python-apt==0.9.3.5ubuntu2
-python-debian==0.1.21-nmu2ubuntu2
 python3-xlib==0.15
 
 requests==2.2.1
