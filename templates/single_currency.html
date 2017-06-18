@@ -7,18 +7,19 @@
 	$(function() {
 		setInterval(function(){
 			var time_start = performance.now();
-			$.getJSON($SCRIPT_ROOT+"/bitcoin", {}, function(data){
-				$(".price").text(data.result);
-				console.log("updated")
+			console.log("request to: "+$SCRIPT_ROOT+"/getCoinData"+window.location.pathname);
+			$.getJSON($SCRIPT_ROOT+"/getCoinData"+window.location.pathname, {}, function(data){
+				$(".price").text(data.price_usd);
+				console.log("updated: ",data.price_usd)
 			});
 			var time_end = performance.now();
 			var delta = time_end - time_start;
-			console.log("Took: " + delta +"ms");
+			console.log("[JS/HTML] Took: " + delta +"ms");
 		}, 10000);
 	})
 </script>
 {% endblock %}
 
 {% block body %}
-	<h1 class="header_title">{{currency}}: <span class="price">{{data["price_usd"]}}$</span></h1>
+	<h1 class="header_title">{{currency}}: <span class="price">{{data["price_usd"]}}</span>$</h1>
 {% endblock %}
