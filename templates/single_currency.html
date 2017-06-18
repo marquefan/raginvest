@@ -1,0 +1,24 @@
+{% extends "basic.html" %}
+
+{% block script%}
+<script type="text/javascript">
+	$SCRIPT_ROOT = {{ request.script_root |tojson|safe }};
+	
+	$(function() {
+		setInterval(function(){
+			var time_start = performance.now();
+			$.getJSON($SCRIPT_ROOT+"/bitcoin", {}, function(data){
+				$(".price").text(data.result);
+				console.log("updated")
+			});
+			var time_end = performance.now();
+			var delta = time_end - time_start;
+			console.log("Took: " + delta +"ms");
+		}, 10000);
+	})
+</script>
+{% endblock %}
+
+{% block body %}
+	<h1 class="header_title">{{currency}}: <span class="price">{{data["price_usd"]}}$</span></h1>
+{% endblock %}

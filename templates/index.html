@@ -5,10 +5,15 @@
 	$SCRIPT_ROOT = {{ request.script_root |tojson|safe }};
 	$(function() {
 		setInterval(function(){
+			var time_start = performance.now();
 			$.getJSON($SCRIPT_ROOT+"/bitcoin", {}, function(data){
-				$(".price")[0].text(data.result);
+				$(".price").text(data.result);
+				console.log("updated")
 			});
-		}, 5000);
+			var time_end = performance.now();
+			var delta = time_end - time_start;
+			console.log("Took: " + delta +"ms");
+		}, 10000);
 	})
 </script>
 {% endblock %}
