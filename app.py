@@ -7,18 +7,22 @@ from coinmarketcapAPI import *
 
 app = Flask(__name__)
 
-data = []
 global_data = []
+coinlist = {}
 
 @app.before_first_request
 def initialize():
 	load_data()
+	global coinlist
+	#coinlist = [None] * len(global_data)
+	for idx, coin in enumerate(global_data):
+		coinlist[coin["name"].lower()] = idx
 	apsched = BackgroundScheduler()
 	apsched.start()
 
 	apsched.add_job(
 		func=load_data,
-		trigger=IntervalTrigger(seconds=10),
+		trigger=IntervalTrigger(seconds=30),
 		id="load_data_interval",
 		name="loading data from coinmarketcap",
 		replace_existing=True)
@@ -29,20 +33,21 @@ def load_data():
 	print "reloaded data"
 @app.route("/")
 def index():
-	#data = fetch_coin_data("bitcoin")
 	return render_template("single_currency.html", data=global_data[0], currency="Bitcoin")
 
 @app.route("/<coinname>")
 def coin_data(coinname):
-	data = fetch_coin_data(coinname)
+	load_data()
+	#data = fetch_coin_data(coinname)
 	#return jsonify(data)
-	return render_template("single_currency.html", data=data[0], currency=coinname)
+	return render_template("single_currency.html", data=global_data[coinlist[coinname]], currency=coinname)
 
 # /bitcoin makes a request to this and gets a json object as response with all the data
 @app.route("/getCoinData/<coinname>")
 def return_coin_data(coinname):
 	load_data()
-	return jsonify(global_data[0])
+	index = coinlist[coinname]
+	return jsonify(global_data[index])
 
 if __name__ == "__main__":
 	app.run(debug=True, threaded=True)
