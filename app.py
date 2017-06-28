@@ -7,6 +7,12 @@ from coinmarketcapAPI import *
 
 app = Flask(__name__)
 
+""" 
+
+switch zu cryptowat.ch ? coinmarketcap reloaded zu selten :'(
+
+"""
+
 global_data = []
 coinlist = {}
 
@@ -14,7 +20,6 @@ coinlist = {}
 def initialize():
 	load_data()
 	global coinlist
-	#coinlist = [None] * len(global_data)
 	for idx, coin in enumerate(global_data):
 		coinlist[coin["name"].lower()] = idx
 	apsched = BackgroundScheduler()
